@@ -30,6 +30,7 @@
     --project-overlay-color: rgba(33, 150, 243, 0.9);
     --work-overlay-color: rgba(47, 48, 58, 0.8);
     --backdrop-color: rgba(0, 0, 0, 0.2);
+    --modal-btn-hover: #188ce8;
 
     --main-margin: 30px;
     --secondary-margin: 50px;
@@ -77,6 +78,9 @@ ul {
     padding-top: 94px;
     padding-bottom: 94px;
   }
+    input {
+      outline: none;
+    }
 
 /*====скидаємо загальний стиль тексту сторінки==== */
 .link {
@@ -92,6 +96,17 @@ transition: color 250ms var(--timing-function);
 .link:hover,
 .link:focus {
     color: var(--accent-color);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip: rect(0 0 0 0);
 }
 
 /* =======Шапка========== */
@@ -234,10 +249,12 @@ transition: color 250ms var(--timing-function);
     color: var(--order-title-text-color);
 }
 
-.hero-btn {
+.hero-btn,
+.subscription-btn,
+.modal-btn {
     width: 200px;
   height: var(--secondary-margin);
-  margin-top: var(--main-margin);
+
 
     font-family: inherit;
     font-weight: 700;
@@ -257,8 +274,15 @@ transition: color 250ms var(--timing-function);
     transition: color 250ms var(--timing-function),
     background-color 250ms var(--timing-function);
 }
+
+.hero-btn{
+    margin-top: var(--main-margin);
+}
+
 .hero-btn:hover,
-.hero-btn:focus {
+.hero-btn:focus,
+.subscription-btn:hover,
+.subscription-btn:focus {
     color: var(--accent-color);
     background-color: var(--primary-bg-color);
 }
@@ -315,8 +339,9 @@ transition: color 250ms var(--timing-function);
 .feature-title {
   margin-bottom: var(--small-margin);
 }
-.feature-desc {
-    font-size: 14px;
+.feature-desc,
+.modal-checkbox-label {
+    font-size: var(--main-text-size);
     line-height: 1.71;
 }
 /* секція - робота */
@@ -484,8 +509,12 @@ footer {
   display: flex;
   align-items: baseline;
 }
+.footer-address {
+  flex-grow: 1;
+}
 
-.footer-block:not(:first-child) {
+.footer-block:nth-child(2){
+  margin-right: 93px;
   margin-left: 70px;
 }
 
@@ -513,6 +542,49 @@ footer {
   margin-bottom: 20px;
   color: var(--primary-bg-color);
 }
+
+.footer-form {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+.form-email {
+  margin-right: 12px;
+}
+
+.form-input {
+  height: 50px;
+  width: 358px;
+
+  font-size: var(--main-title-size);
+  line-height: 1.25;
+  color: var(--footer-contacts-color);
+
+  padding-left: 16px;
+
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+.subscription-data {
+  right: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subscription-icon {
+  margin-left: 10px;
+  fill: var(--primary-bg-color);
+
+  transition: fill 250ms var(--timing-function);
+}
+
+.subscription-btn:hover .subscription-icon,
+.subscription-btn:focus .subscription-icon {
+  fill: var(--accent-color);
+}
+
 /*=======Сторінка - Портфоліо======== */
 .filters {
     display: flex;
@@ -654,6 +726,7 @@ footer {
 
   min-width: 528px;
   min-height: 581px;
+  padding: 40px 40px;
 
   background-color: var(--primary-bg-color);
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
@@ -687,4 +760,132 @@ footer {
   background-color: transparent;
   border: 1px solid rgba(0, 0, 0, 0.1);
   cursor: pointer;
+
+  transition: fill 250ms var(--timing-function);
+}
+
+.close-btn:hover,
+.close-btn:focus {
+  fill: var(--accent-color);
+}
+
+/* форма модального вікна */
+
+.modal-title {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.15;
+
+  text-align: center;
+  margin-bottom: 12px;
+
+  color: var(--title-text-color);
+}
+
+.modal-field {
+  display: flex;
+  flex-direction: column-reverse;
+
+  position: relative;
+}
+
+.modal-field:not(:nth-child(4)) {
+  margin-bottom: 10px;
+}
+
+.modal-field:nth-child(4) {
+  margin-bottom: 20px;
+}
+
+.modal-label {
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  line-height: 1.17;
+
+  margin-bottom: 4px;
+}
+
+.modal-input {
+  width: 100%;
+  height: 40px;
+  padding: 11px 12px 11px 42px;
+
+  color: var(--title-text-color);
+  font-size: var(--main-text-size);
+  line-height: 1.14;
+  letter-spacing: 0.01em;
+
+  border: 1px solid rgba(33, 33, 33, 0.2);
+  border-radius: 4px;
+
+  transition: border-color 250ms var(--timing-function);
+}
+
+.modal-input.comment {
+  height: 120px;
+  padding: 12px 16px;
+
+  outline: none;
+  resize: none;
+}
+
+.modal-input.comment::placeholder {
+  color: rgba(117, 117, 117, 0.5);
+}
+
+.modal-icon {
+  position: absolute;
+  fill: var(--title-text-color);
+  left: 12px;
+  top: 50%;
+
+  transition: fill 250ms var(--timing-function);
+}
+
+.modal-input:focus {
+  border-color: var(--accent-color);
+}
+
+.modal-input:focus~.modal-icon {
+  fill: var(--accent-color);
+}
+
+.modal-agreement {
+  margin-bottom: 30px;
+}
+
+.modal-checkbox:checked~.modal-checkbox-icon {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.modal-checkbox-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-checkbox-icon {
+  margin-right: 8px;
+
+  border: 2px solid var(--title-text-color);
+  border-radius: 2px;
+
+  transition: background-color 250ms var(--timing-function),
+    border-color 250ms var(--timing-function);
+}
+
+.agreement-link {
+  color: var(--accent-color);
+}
+
+.modal-btn {
+  display: block;
+  margin: 0 auto;
+}
+
+.modal-btn:hover,
+.modal-btn:focus {
+  color: var(--primary-bg-color);
+  background-color: var(--modal-btn-hover);
 }
